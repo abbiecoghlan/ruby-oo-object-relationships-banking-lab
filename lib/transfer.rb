@@ -1,4 +1,3 @@
-require "pry"
 class Transfer
 
   attr_accessor :status, :amount, :sender, :receiver
@@ -13,22 +12,6 @@ class Transfer
   def valid?
     sender.valid? && receiver.valid?
   end
-
-#i could have used the .valid? method from the bank account
-  # def execute_transaction
-  #   if @transfer_completed != self && sender.balance >= amount
-  #     sender.balance -= amount    
-  #     receiver.balance += amount
-  #     @status = "complete"
-  #     @transfer_completed = self
-  #   end 
-  #   if sender.balance < amount || sender.status == "closed" || receiver.status == "closed"
-  #     @status = "rejected"
-  #     "Transaction rejected. Please check your account balance."
-  #   end
-    
-  # end 
-
   
   def execute_transaction
     if self.status != "complete" && sender.balance >= amount && sender.valid? && receiver.valid?
@@ -41,7 +24,6 @@ class Transfer
     end
   end 
 
-
   def reverse_transfer
     if self.status == "complete"
       self.receiver.balance -= self.amount
@@ -49,6 +31,5 @@ class Transfer
       self.status = "reversed"
     end
   end 
-
 
 end
